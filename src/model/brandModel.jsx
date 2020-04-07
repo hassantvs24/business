@@ -461,6 +461,39 @@ function brandData(){
         ];
 }
 
+function brandColumn(){
+        return [
+                { name: "name", label: "Name", options: {
+                        filter: true,
+                        sort: true,
+                     }},
+        
+                    { name: "position", label: "Position",options: {
+                        filter: true,
+                        sort: true,
+                     }},
+        
+                    { name: "office", label: "Office",options: {
+                        filter: true,
+                        sort: true,
+                     }},
+        
+                    { name: "date", label: "Start date", options: {
+                        filter: true,
+                        sort: true,
+                    }},
+        
+                    { name: "salary", label: "Salary", options: {
+                        filter: true,
+                        sort: true,
+                    }}
+        ];
+}
+
+function getBrand(id) {
+        return brandData()[id];
+      }
+/*
 function myData(){
         return [
                 ["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000", "$100,000", "$100,000"],
@@ -525,6 +558,6 @@ function myData(){
                 ["Mason Ray", "Computer Scientist", "San Francisco", 39, "$142,000", "$142,000", "$142,000"]
               ];
 }
+*/
 
-
-export default {brandData, myData}
+export default {brandData, brandColumn, getBrand}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Title } from './title';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-const Main = ({title, header, children}) => {
+const Main = ({title, header, children, size}) => {
 
     const getMuiTheme = () => createMuiTheme({
         overrides: {
@@ -96,7 +96,7 @@ const Main = ({title, header, children}) => {
         <React.Fragment>
             {title && <Title title={title}/>}
             <div className="row">
-                <div className="col-md-12">
+                <div className={size=== undefined? 'col-md-12' : `col-md-${size}`}>
                     <div className="panel panel-flat border-top-success">
                         {header && <div className="panel-heading"><h6 className="panel-title">{header}</h6></div>}
         

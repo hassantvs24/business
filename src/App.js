@@ -40,6 +40,7 @@ import SummeryReports from './component/reports/summery';
 import CustomerList from './component/customer/customerList';
 import SupplierList from './component/supplier/supplierList';
 import './App.css';
+import BrandAction from './component/settings/action/brandAction';
 
 
 class App extends Component {
@@ -96,7 +97,10 @@ class App extends Component {
 
                 <Route path="/settings" exact component={SiteSettings} />
                 <Route path="/settings/account" exact component={Accounts} />
+
                 <Route path="/settings/brands" exact component={Brands} />
+                <Route path="/settings/brands/:id" exact component={BrandAction} />
+
                 <Route path="/settings/company" exact component={Company} />
                 <Route path="/settings/payment-method" exact component={PaymentMethods} />
                 <Route path="/settings/shipment" exact component={Shipment} />

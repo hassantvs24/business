@@ -5,8 +5,10 @@ const config = {
     save: 'Data Successfully Saved',
     edit: 'Data Successfully Updated',
 
-    row_per_page: 10,
-    pagination: [10,15,25,50,100]
+    row_per_page: 15,
+    pagination: [10,15,25,50,100],
+    filter: "multiselect",//'checkbox', 'dropdown', 'multiselect', 'textField', 'custom'
+    responsive: "scrollFullHeight", //'stacked', 'scrollMaxHeight', 'scrollFullHeight', 'scrollFullHeightFullWidth'
 };
 
 export default config;
