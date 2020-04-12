@@ -43,6 +43,9 @@ class Aside extends Component {
                                     <ul style={{display: activePath.includes("products") ? 'block':'none'}}>
                                         <li className={activePath === 'products' ? 'active' : ''}><NavLink to="/products"><i className="icon-diamond3"></i> <span>Product List</span></NavLink></li>
                                         <li className={activePath === 'products/category' ? 'active' : ''}><NavLink to="/products/category"><i className="icon-diamond3"></i> <span>Product Category</span></NavLink></li>
+                                        <li className={activePath === 'products/units' ? 'active' : ''}><NavLink to="/products/units"><i className="icon-diamond3"></i> <span>Units</span></NavLink></li>
+                                        <li className={activePath === 'products/brands' ? 'active' : ''}><NavLink to="/products/brands"><i className="icon-diamond3"></i> <span>Brands</span></NavLink></li>
+                                        <li className={activePath === 'products/company' ? 'active' : ''}><NavLink to="/products/company"><i className="icon-diamond3"></i> <span>Company</span></NavLink></li>
                                         <li className={activePath === 'products/adjustment' ? 'active' : ''}><NavLink to="/products/stock-adjustment"><i className="icon-diamond3"></i> <span>Stock Adjustment</span></NavLink></li>
                                     </ul>
                                 </li>
@@ -89,12 +92,9 @@ class Aside extends Component {
                                 <li className={activePath.includes("settings") ? 'active' : ''}><a href="/#"><i className=" icon-hammer-wrench"></i> <span>Settings</span></a>
                                     <ul style={{display: activePath.includes("settings") ? 'block':'none'}}>
                                         <li className={activePath === 'settings' ? 'active' : ''}><NavLink to="/settings"><i className="icon-diamond3"></i> <span>Site Settings</span></NavLink></li>
-                                        <li className={activePath === 'settings/account' ? 'active' : ''}><NavLink to="/settings/account"><i className="icon-diamond3"></i> <span>Accounts</span></NavLink></li>
-                                        <li className={activePath === 'settings/brands' ? 'active' : ''}><NavLink to="/settings/brands"><i className="icon-diamond3"></i> <span>Brands</span></NavLink></li>
-                                        <li className={activePath === 'settings/company' ? 'active' : ''}><NavLink to="/settings/company"><i className="icon-diamond3"></i> <span>Company</span></NavLink></li>
+                                        <li className={activePath === 'settings/account' ? 'active' : ''}><NavLink to="/settings/account"><i className="icon-diamond3"></i> <span>Accounts</span></NavLink></li>        
                                         <li className={activePath === 'settings/payment-method' ? 'active' : ''}><NavLink to="/settings/payment-method"><i className="icon-diamond3"></i> <span>Payment Method</span></NavLink></li>
                                         <li className={activePath === 'settings/shipment' ? 'active' : ''}><NavLink to="/settings/shipment"><i className="icon-diamond3"></i> <span>Shipment</span></NavLink></li>
-                                        <li className={activePath === 'settings/units' ? 'active' : ''}><NavLink to="/settings/units"><i className="icon-diamond3"></i> <span>Units</span></NavLink></li>
                                         <li className={activePath === 'settings/warehouse' ? 'active' : ''}><NavLink to="/settings/warehouse"><i className="icon-diamond3"></i> <span>Warehouse</span></NavLink></li>
                                         <li className={activePath === 'settings/zone' ? 'active' : ''}><NavLink to="/settings/zone"><i className="icon-diamond3"></i> <span>Zone</span></NavLink></li>
                                     </ul>

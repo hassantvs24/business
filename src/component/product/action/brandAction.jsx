@@ -3,8 +3,8 @@ import {toast} from 'react-toastify';
 import Joi from 'joi-browser';
 import Main from '../../common/main';
 import { Link } from 'react-router-dom';
-import Forms from './../../common/forms';
-import bandModal from './../../../model/brandModel';
+import Forms from '../../common/forms';
+import bandModal from '../../../model/brandModel';
 
 class BrandAction extends Forms {
     state = { 
@@ -60,7 +60,7 @@ class BrandAction extends Forms {
         //Call the server
         //await saveMovie(this.state.data);
         toast.success('Movies list are successfully updated.');
-        this.props.history.push("/settings/brands");
+        this.props.history.push("/products/brands");
     }
     render() { 
       //console.log(this.props.match.params.id);
@@ -68,7 +68,7 @@ class BrandAction extends Forms {
         return ( 
             <React.Fragment>
                 <Main title="Brand Form" header="Brand Form" size={6}>
-                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/settings/brands" ><b><i className="icon-undo2"></i></b>Back</Link></p>
+                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/products/brands" ><b><i className="icon-undo2"></i></b>Back</Link></p>
                 
                     <form onSubmit={this.handleSubmit} className="form-horizontal" method="post" encType="multipart/form-data">
                         <div class="panel panel-flat">

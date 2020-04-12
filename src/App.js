@@ -29,18 +29,18 @@ import Quotations from './component/quotation/quotations';
 import QuotationList from './component/quotation/quotationList';
 import SiteSettings from './component/settings/siteSettings';
 import Accounts from './component/settings/account';
-import Brands from './component/settings/brand';
-import Company from './component/settings/company';
+import Brands from './component/product/brand';
+import Company from './component/product/company';
 import PaymentMethods from './component/settings/paymentMethod';
 import Shipment from './component/settings/shipment';
-import Units from './component/settings/units';
+import Units from './component/product/units';
 import Warehouse from './component/settings/warehouse';
 import Zone from './component/settings/zone';
 import SummeryReports from './component/reports/summery';
 import CustomerList from './component/customer/customerList';
 import SupplierList from './component/supplier/supplierList';
 import './App.css';
-import BrandAction from './component/settings/action/brandAction';
+import BrandAction from './component/product/action/brandAction';
 
 
 class App extends Component {
@@ -75,6 +75,13 @@ class App extends Component {
 
                 <Route path="/products" exact component={Products} />
                 <Route path="/products/category" exact component={ProductCategory} />
+
+                <Route path="/products/brands" exact component={Brands} />
+                <Route path="/products/brands/:id" exact component={BrandAction} />
+
+                <Route path="/products/units" exact component={Units} />
+                <Route path="/products/company" exact component={Company} />
+
                 <Route path="/products/stock-adjustment" exact component={StockAdjustment} />
 
                 <Route path="/purchase" exact component={Purchase} />
@@ -98,13 +105,8 @@ class App extends Component {
                 <Route path="/settings" exact component={SiteSettings} />
                 <Route path="/settings/account" exact component={Accounts} />
 
-                <Route path="/settings/brands" exact component={Brands} />
-                <Route path="/settings/brands/:id" exact component={BrandAction} />
-
-                <Route path="/settings/company" exact component={Company} />
                 <Route path="/settings/payment-method" exact component={PaymentMethods} />
                 <Route path="/settings/shipment" exact component={Shipment} />
-                <Route path="/settings/units" exact component={Units} />
                 <Route path="/settings/warehouse" exact component={Warehouse} />
                 <Route path="/settings/zone" exact component={Zone} />
 

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import MUIDataTable from "mui-datatables";
 import {toast} from 'react-toastify';
 import Main from '../common/main';
-import RowAction from './../common/rowAction';
-import bandModal from './../../model/brandModel';
-import config from './../../config';
+import RowAction from '../common/rowAction';
+import bandModal from '../../model/brandModel';
+import config from '../../config';
 import { Link } from 'react-router-dom';
 
 
@@ -50,7 +50,7 @@ class Brands extends Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <RowAction> 
-                            <li><Link  to={`/settings/brands/${this.state.selectedCell}`}><i className="icon-pencil5"></i> Edit</Link></li>
+                            <li><Link  to={`/products/brands/${this.state.selectedCell}`}><i className="icon-pencil5"></i> Edit</Link></li>
                             <li><span onClick={() => {this.handleDelete([this.state.selectedCell])} } ><i className="icon-bin"></i> Delete</span></li>
                         </RowAction>
                     );
@@ -105,7 +105,7 @@ class Brands extends Component {
             <React.Fragment>
                
                 <Main title="Brands" header="Brands">
-                    <p><Link  className="btn btn-primary btn-labeled" to="/settings/brands/new" ><b><i className="icon-file-plus"></i></b>Add New Brand</Link></p>
+                    <p><Link  className="btn btn-primary btn-labeled" to="/products/brands/new" ><b><i className="icon-file-plus"></i></b>Add New Brand</Link></p>
 
                     <MUIDataTable
                         title={"Brand List"}
