@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import Main from '../common/main';
 
-class Accounts extends Component {
-    state = {  }
+
+class TrialBalance extends Component {
+    state = {}
+
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Accounts" header="Accounts">
-                    <h1>Accounts</h1>
+                <Main title="Trial Balance" header="Trial Balance">
+
                 </Main>
             </React.Fragment>
          );
     }
 }
  
-export default Accounts;
+export default TrialBalance;

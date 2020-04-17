@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({user}) => {
     return ( 
             <div className="navbar navbar-default navbar-fixed-top header-highlight">
                 <div className="navbar-header">
@@ -109,15 +110,15 @@ const Header = () => {
                         <li className="dropdown dropdown-user">
                             <a href="/#" className="dropdown-toggle" data-toggle="dropdown">
                                 <i className="icon-user-tie"></i>
-                                <span>User Name</span>
+                                <span>{user && user.name}</span>
                                 <i className="caret"></i>
                             </a>
 
                             <ul className="dropdown-menu dropdown-menu-right">
-                                <li><a href="/#"><i className="icon-user-plus"></i> User Name</a></li>
-                                <li><a href="/#"><i className="icon-paperplane"></i> User Email</a></li>
+                                <li><a href="/#"><i className="icon-user-plus"></i> {user && user.name}</a></li>
+                                <li><a href="/#"><i className="icon-paperplane"></i> {user && user.email}</a></li>
                                 <li className="divider"></li>
-                                <li><a href="/#"><i className="icon-switch2"></i> Logout</a></li>
+                                <li><Link to="/auth/logout"><i className="icon-switch2"></i> Logout</Link></li>
                             </ul>
                         </li>
                     </ul>

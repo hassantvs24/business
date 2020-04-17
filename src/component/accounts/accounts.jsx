@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import Main from '../common/main';
 
-class Zone extends Component {
-    state = {  }
+
+class Accounts extends Component {
+    state = {}
+
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Zone" header="Zone">
-                    <h1>Zone</h1>
+                <Main title="Accounts List" header="Accounts List">
+
                 </Main>
             </React.Fragment>
          );
     }
 }
  
-export default Zone;
+export default Accounts;

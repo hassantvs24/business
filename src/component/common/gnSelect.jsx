@@ -1,7 +1,7 @@
 import React from 'react';
-import Select from 'react-select';
+import uuid4 from 'uuid4'
 
-const GnSelect = ({label, error, rq, options, ...rest}) => {
+const GnSelect = ({label, options, error, rq, ...rest}) => {
 
     return ( 
         <React.Fragment>
@@ -9,7 +9,9 @@ const GnSelect = ({label, error, rq, options, ...rest}) => {
             <div className={error ? "form-group has-error":  "form-group"}>
                 <label className="control-label col-lg-3">{label} {rq && <span className="text-danger">*</span>}</label>
                 <div className="col-lg-9">
-                    <Select {...rest} required={rq && 'required'}  required={rq && 'required'} options={options} />
+                    <select {...rest} className="form-control" required={rq && 'required'} >    
+                        {options.map(option => <option key={uuid4()} value={option.value}>{option.label}</option>)}
+                    </select>
                     {error && <span className="help-block">{error}</span>}
                 </div>
             </div>

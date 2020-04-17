@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import GnInput from './gnInput';
+import GnSelect from './gnSelect';
 
 class Forms extends Component {
     state = { 
@@ -60,12 +61,27 @@ class Forms extends Component {
 
     renderInput(name, label, type = 'text', rq= false, autocomplete='on'){
         const {data, errors} = this.state;
-        return (<GnInput label={label} name={name} onChange={this.handleChange} value={data[name]} error={errors[name]} type={type} rq={rq} autoComplete={autocomplete} />);
+        return (<GnInput label={label} name={name} onChange={this.handleChange} value={data[name] || ''} error={errors[name]} type={type} rq={rq} autoComplete={autocomplete} />);
+    }
+
+    renderNumInput(name, label, rq= false, autocomplete='on'){
+        const {data, errors} = this.state;
+        return (<GnInput label={label} name={name} onChange={this.handleChange} value={data[name] || ''} step="any"  min="0" error={errors[name]} type='number' rq={rq} autoComplete={autocomplete} />);
+    }
+
+    renderHidden(name){
+        const {data} = this.state;
+        return <input type="hidden" name={name} value={data[name] || ''} />
+    }
+
+    renderSelect(name, label, options, rq= false){
+        const {data, errors} = this.state;
+        return (<GnSelect label={label} name={name} options={options} onChange={this.handleChange} value={data[name] || ''} error={errors[name]} rq={rq} />);
     }
 
     renderNumber(name, label, rq= false, autocomplete='on', step='any',  min, max){
         const {data, errors} = this.state;
-        return (<GnInput label={label} name={name} onChange={this.handleChange} value={data[name]} 
+        return (<GnInput label={label} name={name} onChange={this.handleChange} value={data[name] || ''} 
             error={errors[name]} type="number" 
             rq={rq} 
             autoComplete={autocomplete} 

@@ -5,21 +5,24 @@ import Joi from 'joi-browser';
 import Main from '../../common/main';
 import { Link } from 'react-router-dom';
 import Forms from '../../common/forms';
-import {getBrand, saveBrand} from '../../../model/brandModel';
+import {shipmentGet, shipmentSave} from '../../../model/shipmentModel';
 
-class BrandAction extends Forms {
+
+class ShipmentAction extends Forms {
     state = { 
         data: {
             name:'', 
-            description: ''
+            description: '',
+            shipping_company: ''
         },
         errors: {}
      }
      
      schema = {
         id: Joi.number(),
-        name: Joi.string().min(3).required().label('Brand Name'),
-        description: Joi.any()
+        name: Joi.string().max(191).required().label('Name'),
+        description: Joi.any(),
+        shipping_company: Joi.any(),
     }
 
     componentDidMount(){
@@ -32,7 +35,7 @@ class BrandAction extends Forms {
             const dataID = this.props.match.params.id;
             if(dataID === "new") return;
     
-            const {data: getData} = await getBrand(dataID);
+            const {data: getData} = await shipmentGet(dataID);
             this.setState({data: this.dataShape(getData.data)});
         }catch (ex){
             if(ex.response && ex.response.status === 404) 
@@ -45,15 +48,16 @@ class BrandAction extends Forms {
         return {
             id: shape.id, 
             name: shape.name, 
-            description: shape.description
+            description: shape.description,
+            shipping_company: shape.shipping_company
         }
     }
 
      doSubmit = async () => {
          try{
-            await saveBrand(this.state.data);
+            await shipmentSave(this.state.data);
             toast.success(config.save);
-            this.props.history.push("/products/brands");
+            this.props.history.push("/settings/shipment");
          }catch(ex){
             toast.error(config.error);
          }
@@ -63,16 +67,17 @@ class BrandAction extends Forms {
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Brand Form" header="Brand Form" size={6}>
-                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/products/brands" ><b><i className="icon-undo2"></i></b>Back</Link></p>
+                <Main title="Shipment Setup Form" header="Shipment Setup Form" size={6}>
+                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/settings/shipment" ><b><i className="icon-undo2"></i></b>Back</Link></p>
                 
                     <form onSubmit={this.handleSubmit} className="form-horizontal" method="post" encType="multipart/form-data">
                         <div className="panel panel-flat">
                                 
                             <div className="panel-body">
 
-                            {this.renderInput('name', 'Brand Name', 'text', true)}
-                            {this.renderInput('description', 'Brand Descriptions', 'text')}
+                            {this.renderInput('name', 'Name', 'text', true)}
+                            {this.renderInput('description', 'Description', 'text')}
+                            {this.renderInput('shipping_company', 'Shipping Company', 'text')}
                             {this.renderSubmit()}
                                 
                             </div>
@@ -85,4 +90,4 @@ class BrandAction extends Forms {
     }
 }
  
-export default BrandAction;
+export default ShipmentAction;

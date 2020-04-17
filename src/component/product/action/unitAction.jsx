@@ -5,21 +5,21 @@ import Joi from 'joi-browser';
 import Main from '../../common/main';
 import { Link } from 'react-router-dom';
 import Forms from '../../common/forms';
-import {getBrand, saveBrand} from '../../../model/brandModel';
+import {unitGet, unitSave} from '../../../model/productUnitModel';
 
-class BrandAction extends Forms {
+class UnitAction extends Forms {
     state = { 
         data: {
             name:'', 
-            description: ''
+            full_name: ''
         },
         errors: {}
      }
      
      schema = {
         id: Joi.number(),
-        name: Joi.string().min(3).required().label('Brand Name'),
-        description: Joi.any()
+        name: Joi.string().max(30).required().label('Unit Short Name'),
+        full_name: Joi.string().max(150).required().label('Unit Full Name'),
     }
 
     componentDidMount(){
@@ -32,7 +32,7 @@ class BrandAction extends Forms {
             const dataID = this.props.match.params.id;
             if(dataID === "new") return;
     
-            const {data: getData} = await getBrand(dataID);
+            const {data: getData} = await unitGet(dataID);
             this.setState({data: this.dataShape(getData.data)});
         }catch (ex){
             if(ex.response && ex.response.status === 404) 
@@ -45,15 +45,15 @@ class BrandAction extends Forms {
         return {
             id: shape.id, 
             name: shape.name, 
-            description: shape.description
+            full_name: shape.full_name
         }
     }
 
      doSubmit = async () => {
          try{
-            await saveBrand(this.state.data);
+            await unitSave(this.state.data);
             toast.success(config.save);
-            this.props.history.push("/products/brands");
+            this.props.history.push("/products/units");
          }catch(ex){
             toast.error(config.error);
          }
@@ -63,16 +63,16 @@ class BrandAction extends Forms {
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Brand Form" header="Brand Form" size={6}>
-                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/products/brands" ><b><i className="icon-undo2"></i></b>Back</Link></p>
+                <Main title="Product Unit Form" header="Product Unit Form" size={6}>
+                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/products/units" ><b><i className="icon-undo2"></i></b>Back</Link></p>
                 
                     <form onSubmit={this.handleSubmit} className="form-horizontal" method="post" encType="multipart/form-data">
                         <div className="panel panel-flat">
                                 
                             <div className="panel-body">
 
-                            {this.renderInput('name', 'Brand Name', 'text', true)}
-                            {this.renderInput('description', 'Brand Descriptions', 'text')}
+                            {this.renderInput('name', 'Short Name', 'text', true)}
+                            {this.renderInput('full_name', 'Full Name', 'text')}
                             {this.renderSubmit()}
                                 
                             </div>
@@ -85,4 +85,4 @@ class BrandAction extends Forms {
     }
 }
  
-export default BrandAction;
+export default UnitAction;

@@ -3,11 +3,11 @@ import MUIDataTable from "mui-datatables";
 import {toast} from 'react-toastify';
 import Main from '../common/main';
 import RowAction from '../common/rowAction';
-import {companyData, companyColumn, delCompany} from '../../model/companyModel';
+import {zoneData, zoneColumn, zoneDel} from '../../model/zoneModel';
 import config from '../../config/index';
 import { Link } from 'react-router-dom';
 
-class Company extends Component {
+class Zone extends Component {
     state = { 
         data: [],
         selectedID: '',
@@ -15,8 +15,8 @@ class Company extends Component {
      }
 
     async componentDidMount(){
-        const {data: company} = await companyData();
-        this.setState({data: company.data});
+        const {data: zone} = await zoneData();
+        this.setState({data: zone.data});
     }
 
 
@@ -25,7 +25,7 @@ class Company extends Component {
      */
     columns = () => {
         return [
-            ...companyColumn(),
+            ...zoneColumn(),
             {
                 name: "Action",
                 options: {
@@ -45,7 +45,7 @@ class Company extends Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <RowAction> 
-                            <li><Link  to={`/products/company/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
+                            <li><Link  to={`/location/zone/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
                             <li><span onClick={() => {this.handleDelete(this.state.selectedID)} } ><i className="icon-bin"></i> Delete</span></li>
                         </RowAction>
                     );
@@ -90,7 +90,7 @@ class Company extends Component {
         this.setState({data:filterData});
 
         try{
-            await delCompany(id);
+            await zoneDel(id);
             toast.success(config.del);
         }catch(ex){
             if(ex.response && ex.response.status === 404)
@@ -100,26 +100,23 @@ class Company extends Component {
 
     }
 
-
-
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Company" header="Company">
-                <p><Link  className="btn btn-primary btn-labeled" to="/products/company/new" ><b><i className="icon-file-plus"></i></b>Add New Company</Link></p>
+                <Main title="Zone" header="Zone">
+                <p><Link  className="btn btn-primary btn-labeled" to="/location/zone/new" ><b><i className="icon-file-plus"></i></b>Add New Zone</Link></p>
 
                 <MUIDataTable
-                        title={"Product Company List"}
-                        data={this.state.data}
-                        columns={this.columns()}
-                        options={this.options('company_list.csv')}
-                    />
-                    
+                    title={"Zone List"}
+                    data={this.state.data}
+                    columns={this.columns()}
+                    options={this.options('zone_list.csv')}
+                />
+
                 </Main>
             </React.Fragment>
          );
     }
 }
-
  
-export default Company;
+export default Zone;

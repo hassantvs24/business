@@ -3,11 +3,11 @@ import MUIDataTable from "mui-datatables";
 import {toast} from 'react-toastify';
 import Main from '../common/main';
 import RowAction from '../common/rowAction';
-import {companyData, companyColumn, delCompany} from '../../model/companyModel';
+import {discountData, discountColumn, discountDel} from '../../model/discountModel';
 import config from '../../config/index';
 import { Link } from 'react-router-dom';
 
-class Company extends Component {
+class Discount extends Component {
     state = { 
         data: [],
         selectedID: '',
@@ -15,17 +15,16 @@ class Company extends Component {
      }
 
     async componentDidMount(){
-        const {data: company} = await companyData();
-        this.setState({data: company.data});
+        const {data: discount} = await discountData();
+        this.setState({data: discount.data});
     }
-
 
     /**
      * Table Component Handle
      */
     columns = () => {
         return [
-            ...companyColumn(),
+            ...discountColumn(),
             {
                 name: "Action",
                 options: {
@@ -45,7 +44,7 @@ class Company extends Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <RowAction> 
-                            <li><Link  to={`/products/company/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
+                            <li><Link  to={`/settings/discount/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
                             <li><span onClick={() => {this.handleDelete(this.state.selectedID)} } ><i className="icon-bin"></i> Delete</span></li>
                         </RowAction>
                     );
@@ -90,7 +89,7 @@ class Company extends Component {
         this.setState({data:filterData});
 
         try{
-            await delCompany(id);
+            await discountDel(id);
             toast.success(config.del);
         }catch(ex){
             if(ex.response && ex.response.status === 404)
@@ -100,26 +99,22 @@ class Company extends Component {
 
     }
 
-
-
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Company" header="Company">
-                <p><Link  className="btn btn-primary btn-labeled" to="/products/company/new" ><b><i className="icon-file-plus"></i></b>Add New Company</Link></p>
+                <Main title="Discount" header="Discount">
+                <p><Link  className="btn btn-primary btn-labeled" to="/settings/discount/new" ><b><i className="icon-file-plus"></i></b>Add New Discount</Link></p>
 
                 <MUIDataTable
-                        title={"Product Company List"}
-                        data={this.state.data}
-                        columns={this.columns()}
-                        options={this.options('company_list.csv')}
-                    />
-                    
+                    title={"Discount Rate List"}
+                    data={this.state.data}
+                    columns={this.columns()}
+                    options={this.options('discount_rate_list.csv')}
+                />
                 </Main>
             </React.Fragment>
          );
     }
 }
-
  
-export default Company;
+export default Discount;

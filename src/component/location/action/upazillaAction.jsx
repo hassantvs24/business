@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Forms from '../../common/forms';
 import {getBrand, saveBrand} from '../../../model/brandModel';
 
-class BrandAction extends Forms {
+class UpazillaAction extends Forms {
     state = { 
         data: {
             name:'', 
@@ -85,4 +85,4 @@ class BrandAction extends Forms {
     }
 }
  
-export default BrandAction;
+export default UpazillaAction;

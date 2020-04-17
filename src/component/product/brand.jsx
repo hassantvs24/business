@@ -3,34 +3,29 @@ import MUIDataTable from "mui-datatables";
 import {toast} from 'react-toastify';
 import Main from '../common/main';
 import RowAction from '../common/rowAction';
-import bandModal from '../../model/brandModel';
-import config from '../../config';
+import {brandData, brandColumn, delBrand} from '../../model/brandModel';
+import config from '../../config/index';
 import { Link } from 'react-router-dom';
 
 
 class Brands extends Component {
     state = { 
         data: [],
-        inputFiled: {
-            id: '',
-            title: '',
-            year: ''
-        },
-        selectedCell: '',
+        selectedID: '',
         errors: {}
      }
 
-     componentDidMount(){
-         const data = bandModal.brandData();
-         this.setState({data});
-     }
-    
+     async componentDidMount(){
+        const {data: brands} = await brandData();
+        this.setState({data: brands.data});
+    }
+
 /**
  * Table Component Handle
  */
      columns = () => {
         return [
-            ...bandModal.brandColumn(),
+            ...brandColumn(),
             {
                 name: "Action",
                 options: {
@@ -50,8 +45,8 @@ class Brands extends Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <RowAction> 
-                            <li><Link  to={`/products/brands/${this.state.selectedCell}`}><i className="icon-pencil5"></i> Edit</Link></li>
-                            <li><span onClick={() => {this.handleDelete([this.state.selectedCell])} } ><i className="icon-bin"></i> Delete</span></li>
+                            <li><Link  to={`/products/brands/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
+                            <li><span onClick={() => {this.handleDelete(this.state.selectedID)} } ><i className="icon-bin"></i> Delete</span></li>
                         </RowAction>
                     );
                     }
@@ -64,6 +59,7 @@ class Brands extends Component {
         return {
             filterType: config.filter,
             responsive: config.responsive,
+            selectableRows: 'none',
             filter: true,
             fixedHeader:true,
             rowsPerPageOptions: config.pagination,
@@ -75,14 +71,10 @@ class Brands extends Component {
                     useDisplayedRowsOnly: true
                 }
             },
-            onRowsDelete: ({data: rowIndex}) => {
-                const rows = rowIndex.map(selected => {return selected.dataIndex;});
-                this.handleDelete(rows);
-                return false; //Block Default table body content
-            },
-
             onRowClick: (rowData, rowMeta) => {
-                this.setState({selectedCell: rowMeta.dataIndex});
+                const mainData = this.state.data;
+                const id = mainData[rowMeta.dataIndex].id;//Getting Database ID
+                this.setState({selectedID: id});
             }
         };
     }
@@ -90,12 +82,20 @@ class Brands extends Component {
  * /Table Component Handle
  */
 
-    handleDelete = (rows) => {
+    handleDelete = async (id) => {
         const {data: originalData} = this.state;
-        rows.forEach(e => delete originalData[e]);//Delete by filtered index
-        const data = originalData.filter(Boolean); //Remove empty array
-        this.setState({data});
-        toast.success(config.del);
+
+        const filterData = originalData.filter(m => m.id !== id);
+        this.setState({data:filterData});
+
+        try{
+            await delBrand(id);
+            toast.success(config.del);
+          }catch(ex){
+              if(ex.response && ex.response.status === 404)
+              toast.error(config.error);
+              this.setState({data: originalData});
+          }
     }
 
 

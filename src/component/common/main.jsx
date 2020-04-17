@@ -35,7 +35,7 @@ const Main = ({title, header, children, size}) => {
 
           MuiTooltip: {
             tooltip: {
-              fontSize: 10
+              fontSize: 12
             }
           },
 
@@ -59,7 +59,7 @@ const Main = ({title, header, children, size}) => {
 
           MuiFormLabel: {
             root: {
-              fontSize: 16
+              fontSize: 14
             }
           },
 
@@ -71,13 +71,13 @@ const Main = ({title, header, children, size}) => {
 
           MuiMenuItem: {
             root: {
-              fontSize: 12
+              fontSize: 12,
             }
           },
 
-          MuiTypography: {
-            subtitle1: {
-              fontSize: 12
+          MuiTypography:{
+            body1: {
+              fontSize: 11,
             }
           },
           

@@ -5,21 +5,22 @@ import Joi from 'joi-browser';
 import Main from '../../common/main';
 import { Link } from 'react-router-dom';
 import Forms from '../../common/forms';
-import {getBrand, saveBrand} from '../../../model/brandModel';
+import {vatTaxGet, vatTaxSave} from '../../../model/vatTaxModel';
 
-class BrandAction extends Forms {
+
+class VatTaxAction extends Forms {
     state = { 
         data: {
             name:'', 
-            description: ''
+            amount: ''
         },
         errors: {}
      }
      
      schema = {
         id: Joi.number(),
-        name: Joi.string().min(3).required().label('Brand Name'),
-        description: Joi.any()
+        name: Joi.string().max(191).required().label('Name'),
+        amount: Joi.number().min(0).required().label('Tax Rate'),
     }
 
     componentDidMount(){
@@ -32,7 +33,7 @@ class BrandAction extends Forms {
             const dataID = this.props.match.params.id;
             if(dataID === "new") return;
     
-            const {data: getData} = await getBrand(dataID);
+            const {data: getData} = await vatTaxGet(dataID);
             this.setState({data: this.dataShape(getData.data)});
         }catch (ex){
             if(ex.response && ex.response.status === 404) 
@@ -45,15 +46,15 @@ class BrandAction extends Forms {
         return {
             id: shape.id, 
             name: shape.name, 
-            description: shape.description
+            amount: shape.amount
         }
     }
 
      doSubmit = async () => {
          try{
-            await saveBrand(this.state.data);
+            await vatTaxSave(this.state.data);
             toast.success(config.save);
-            this.props.history.push("/products/brands");
+            this.props.history.push("/settings/vat-tax");
          }catch(ex){
             toast.error(config.error);
          }
@@ -63,16 +64,16 @@ class BrandAction extends Forms {
     render() { 
         return ( 
             <React.Fragment>
-                <Main title="Brand Form" header="Brand Form" size={6}>
-                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/products/brands" ><b><i className="icon-undo2"></i></b>Back</Link></p>
+                <Main title="Vat Tax Setup Form" header="Vat Tax Setup Form" size={6}>
+                    <p><Link title="Go Back" className="btn btn-danger btn-labeled" to="/settings/vat-tax" ><b><i className="icon-undo2"></i></b>Back</Link></p>
                 
                     <form onSubmit={this.handleSubmit} className="form-horizontal" method="post" encType="multipart/form-data">
                         <div className="panel panel-flat">
                                 
                             <div className="panel-body">
 
-                            {this.renderInput('name', 'Brand Name', 'text', true)}
-                            {this.renderInput('description', 'Brand Descriptions', 'text')}
+                            {this.renderInput('name', 'Name', 'text', true)}
+                            {this.renderNumInput('amount', 'Tax Rate')}
                             {this.renderSubmit()}
                                 
                             </div>
@@ -85,4 +86,4 @@ class BrandAction extends Forms {
     }
 }
  
-export default BrandAction;
+export default VatTaxAction;
