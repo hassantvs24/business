@@ -10,9 +10,13 @@ axios.interceptors.response.use(null, error => {
   });
 
   function setJwt(jwt){
-    axios.defaults.headers.common["Accept"] = 'application/json';
-    axios.defaults.headers.common["Content-Type"] = 'application/json';
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+  }
+
+  function setHeader(hederArray){
+    hederArray.forEach((val, i) => {
+      axios.defaults.headers.common[i] = val;
+    });
   }
 
 
@@ -21,5 +25,6 @@ axios.interceptors.response.use(null, error => {
       post: axios.post,
       put: axios.put,
       delete: axios.delete,
-      setJwt
+      setJwt,
+      setHeader
   }

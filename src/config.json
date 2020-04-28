@@ -1,3 +1,4 @@
 {
-    "apiEndpoint": "http://localhost/seven/api/"
+    "apiEndpoint": "http://localhost/seven/api/",
+    "software_key": "ifs-start"
 }

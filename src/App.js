@@ -26,7 +26,7 @@ import ExpenseCategory from './component/expense/expenseCategory';
 import Expenses from './component/expense/expenses';
 import Quotations from './component/quotation/quotations';
 import QuotationList from './component/quotation/quotationList';
-import SiteSettings from './component/settings/siteSettings';
+import Business from './component/settings/business';
 import Brands from './component/product/brand';
 import Company from './component/product/company';
 import Shipment from './component/settings/shipment';
@@ -67,7 +67,13 @@ import BalanceSheet from './component/accounts/balanceSheet';
 import TrialBalance from './component/accounts/trialBalance';
 import CashFlow from './component/accounts/cashFlow';
 import AccountReports from './component/accounts/accountReports';
+import WarehouseAction from './component/settings/action/warehouseAction';
+import AccountAction from './component/accounts/action/accountAction';
+import ProductAction from './component/product/action/productAction';
 import './App.css';
+
+
+
 
 
 
@@ -121,6 +127,7 @@ class App extends Component {
 
                 {/* Product: Start */}
                 <AuthRoute path="/products/list" exact component={Products} />
+                <AuthRoute path="/products/list/:id" exact component={ProductAction} />
                 <AuthRoute path="/products/category" exact component={ProductCategory} />
                 <AuthRoute path="/products/category/:id" exact component={ProductCategoryAction} />
 
@@ -159,6 +166,7 @@ class App extends Component {
 
                 {/* Accounts: Start */}
                 <AuthRoute path="/accounts/list" exact component={Accounts} />
+                <AuthRoute path="/accounts/list/:id" exact component={AccountAction} />
                 <AuthRoute path="/accounts/balance-sheet" exact component={BalanceSheet} />
                 <AuthRoute path="/accounts/trial-balance" exact component={TrialBalance} />
                 <AuthRoute path="/accounts/cashflow" exact component={CashFlow} />
@@ -176,8 +184,9 @@ class App extends Component {
                 {/* User: End */}
 
                 {/* Settings: Start */}
-                <AuthRoute path="/settings/business" exact component={SiteSettings} />
+                <AuthRoute path="/settings/business" exact component={Business} />
                 <AuthRoute path="/settings/warehouse" exact component={Warehouse} />
+                <AuthRoute path="/settings/warehouse/:id" exact component={WarehouseAction} />
 
                 <AuthRoute path="/settings/discount" exact component={Discount} />
                 <AuthRoute path="/settings/discount/:id" exact component={DiscountAction} />
