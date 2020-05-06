@@ -3,10 +3,12 @@ import Joi from 'joi-browser';
 import GnInput from './gnInput';
 import GnSelect from './gnSelect';
 import GnSelectTwo from './gnSelectTwo';
+import GnUpload from './gnUpload';
 
 class Forms extends Component {
     state = { 
         data: {},
+        defaultSelect:{},
         errors: {}
      }
 
@@ -37,8 +39,10 @@ class Forms extends Component {
         else delete errors[input.name];
 
        const data = {...this.state.data};
+       const defaultSelect = {...this.state.defaultSelect};
        data[action.name] = val.value;
-       this.setState({data, errors});
+       defaultSelect[action.name] = val;
+       this.setState({data, defaultSelect, errors});
       }
 
     handleChange = ({currentTarget: input}) => {
@@ -108,11 +112,11 @@ class Forms extends Component {
 
     renderSelectTwo(name, label, options, defaultVal, rq= false){
         const {errors} = this.state;
-        return (<GnSelectTwo label={label} name={name} options={options} onChange={this.handleSelect} defaultValue={defaultVal} error={errors[name]} rq={rq} />);
+        return (<GnSelectTwo label={label} name={name} options={options} onChange={this.handleSelect} value={defaultVal} error={errors[name]} rq={rq} />);
     }
 
-    renderFileUpload(name, label, accept){
-        return (<input type="file" name={name}  onChange={this.onUploadHandle}  accept={accept} />);
+    renderFileUpload(name, label, accept, rq){
+        return (<GnUpload name={name} label={label}  onChange={this.onUploadHandle}  accept={accept}  rq={rq} />);
     }
 
     renderNumber(name, label, rq= false, autocomplete='on', step='any',  min, max){

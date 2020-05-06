@@ -30,11 +30,19 @@ class ProductAction extends Forms {
             units_id:''
         },
         options: {
-            product_type: [{ value: '', label: 'Select Product Type' }],
-            product_categories_id: [{ value: '', label: 'Select Product Category' }],
-            brands_id: [{ value: '', label: 'Select Product Brand' }],
-            companies_id: [{ value: '', label: 'Select Product Companies' }],
-            units_id: [{ value: '', label: 'Select Product Units' }],
+            productType: [{ value: '', label: 'Select Product Type' }],
+            productCategories: [{ value: '', label: 'Select Product Category' }],
+            brand: [{ value: '', label: 'Select Product Brand' }],
+            company: [{ value: '', label: 'Select Product Companies' }],
+            units: [{ value: '', label: 'Select Product Units' }],
+        },
+
+        defaultSelect: {
+            product_type: { value: '', label: 'Select Product Type' },
+            product_categories_id: { value: '', label: 'Select Product Category' },
+            brands_id: { value: '', label: 'Select Product Brand' },
+            companies_id: { value: '', label: 'Select Product Companies' },
+            units_id: { value: '', label: 'Select Product Units' }
         },
         errors: {}
      }
@@ -55,18 +63,13 @@ class ProductAction extends Forms {
         units_id: Joi.number().required().label('Product Unit')
     }
 
-    componentDidMount(){
+    async componentDidMount(){
          this.populateData();
-    }
 
-
-    populateData = async () => {
-        try{
-
-            const productTypeData = [
-                { id: 'Main', name: 'Main' },
-                { id: 'Other', name: 'Other' }
-            ];
+         const productTypeData = [
+            { id: 'Main', name: 'Main' },
+            { id: 'Other', name: 'Other' }
+        ];
 
         const {data: category} = await productCategoryData();
         const {data: brand} = await brandData();
@@ -80,20 +83,34 @@ class ProductAction extends Forms {
         const unitShape = this.optionShape(units.data, 'Select Product Units');
 
         const optionData = {
-            product_type: productTypeShape,
-            product_categories_id: productCategoryShape,
-            brands_id: brandShape,
-            companies_id: companyShape,
-            units_id: unitShape
+            productType: productTypeShape,
+            productCategories: productCategoryShape,
+            brand: brandShape,
+            company: companyShape,
+            units: unitShape
         }
 
-        this.setState({options: optionData});
+        const {product_type, product_categories_id, brands_id, companies_id, units_id} = this.state.data;
+
+        const setDefault = {
+            product_type: this.getDefault(productTypeShape, product_type),
+            product_categories_id: this.getDefault(productCategoryShape, product_categories_id),
+            brands_id: this.getDefault(brandShape, brands_id),
+            companies_id: this.getDefault(companyShape, companies_id),
+            units_id: this.getDefault(unitShape, units_id)
+        }
+
+        this.setState({options: optionData, defaultSelect: setDefault});
+    }
+
+
+    populateData = async () => {
+        try{
 
             const dataID = this.props.match.params.id;
             if(dataID === "new") return;
     
             const {data: getData} = await productsGet(dataID);
-
 
             this.setState({data: this.dataShape(getData.data)});
         }catch (ex){
@@ -131,6 +148,13 @@ class ProductAction extends Forms {
         }
     }
 
+    getDefault = (options, selected) => {
+        return options.find(m => {
+            return m.value === selected;
+        });
+    }
+
+
      doSubmit = async () => {
          try{
             await productsSave(this.state.data);
@@ -141,30 +165,11 @@ class ProductAction extends Forms {
          }
     }
 
+
     render() { 
-        const {product_type, product_categories_id, brands_id, companies_id, units_id} = this.state.options;
-        const {product_type: productType, product_categories_id: productCategory, brands_id: brand, companies_id: companies, units_id: units} = this.state.data;
-
-        const defaultProductType = product_type.find(m => {
-            return m.value === productType;
-        });
-
-        const defaultProductCategory = product_categories_id.find(m => {
-            return m.value === productCategory;
-        });
-
-        const defaultBrand = brands_id.find(m => {
-            return m.value === brand;
-        });
-
-        const defaultCompanies = companies_id.find(m => {
-            return m.value === companies;
-        });
-
-        const defaultUnit = units_id.find(m => {
-            return m.value === units;
-        });
-
+        const {product_type, product_categories_id, brands_id, companies_id, units_id} = this.state.defaultSelect;
+        const {productType, productCategories, brand, company, units} = this.state.options;
+        
         return ( 
             <React.Fragment>
                 <Main title="Product Form" header="Product Form">
@@ -177,15 +182,15 @@ class ProductAction extends Forms {
                                 <div className="row">
                                     <div className="col-md-6">
                                         
-                                        {this.renderSelectTwo('product_type', 'Product Type', product_type, defaultProductType, true)}
+                                        {this.renderSelectTwo('product_type', 'Product Type',  productType, product_type, true)}
                                         {this.renderInput('sku', 'SKU', 'text', true)}
                                         {this.renderInput('name', 'Name', 'text', true)}
-                                        {this.renderSelectTwo('product_categories_id', 'Product Category', product_categories_id, defaultProductCategory)}
-                                        {this.renderSelectTwo('brands_id', 'Product Brand', brands_id, defaultBrand)}
-                                        {this.renderSelectTwo('companies_id', 'Product Company', companies_id, defaultCompanies)}
+                                        {this.renderSelectTwo('product_categories_id', 'Product Category', productCategories, product_categories_id, true)}
+                                        {this.renderSelectTwo('brands_id', 'Product Brand', brand, brands_id)}
+                                        {this.renderSelectTwo('companies_id', 'Product Company', company, companies_id)}
                                     </div>
                                     <div className="col-md-6">
-                                        {this.renderSelectTwo('units_id', 'Product Unit', units_id, defaultUnit, true)}
+                                        {this.renderSelectTwo('units_id', 'Product Unit', units, units_id, true)}
                                         {this.renderNumInput('sell_price', 'Sells Price', true)}
                                         {this.renderNumInput('purchase_price', 'Purchase Price', true)}
                                         {this.renderNumInput('stock', 'Opening Stock', true)}

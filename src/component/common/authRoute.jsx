@@ -23,7 +23,7 @@ class AuthRoute extends Component {
                     pathname: "/auth/login",
                     state: {from: props.location} //Redirect current url or homepage
                  }} />;
-                return Component ? <Component {...props} /> : render(props);
+                return Component ? <Component {...props}  user={user} /> : render(props);
               }} />
          );
     }

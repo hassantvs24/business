@@ -70,10 +70,9 @@ import AccountReports from './component/accounts/accountReports';
 import WarehouseAction from './component/settings/action/warehouseAction';
 import AccountAction from './component/accounts/action/accountAction';
 import ProductAction from './component/product/action/productAction';
+import ProductTransaction from './component/product/productTransaction';
+import StockAdjustmentAction from './component/product/action/stockAdjustmentAction';
 import './App.css';
-
-
-
 
 
 
@@ -128,6 +127,7 @@ class App extends Component {
                 {/* Product: Start */}
                 <AuthRoute path="/products/list" exact component={Products} />
                 <AuthRoute path="/products/list/:id" exact component={ProductAction} />
+                <AuthRoute path="/products/transaction/:id" exact component={ProductTransaction} />
                 <AuthRoute path="/products/category" exact component={ProductCategory} />
                 <AuthRoute path="/products/category/:id" exact component={ProductCategoryAction} />
 
@@ -141,6 +141,7 @@ class App extends Component {
                 <AuthRoute path="/products/company/:id" exact component={CompanyAction} />
 
                 <AuthRoute path="/products/stock-adjustment" exact component={StockAdjustment} />
+                <AuthRoute path="/products/stock-adjustment/:id" exact component={StockAdjustmentAction} />
                 {/* Product: End */}
 
                 {/* Purchase: Start */}

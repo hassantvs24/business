@@ -44,12 +44,13 @@ class Products extends Component {
                     customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <RowAction> 
+                            <li><Link  to={`/products/transaction/${this.state.selectedID}`}><i className="icon-fan"></i> Stock Transaction</Link></li>
                             <li><Link  to={`/products/list/${this.state.selectedID}`}><i className="icon-pencil5"></i> Edit</Link></li>
                             <li><span onClick={() => {this.handleDelete(this.state.selectedID)} } ><i className="icon-bin"></i> Delete</span></li>
                         </RowAction>
                     );
                     }
-                }
+                }            
             }
         ];
     }

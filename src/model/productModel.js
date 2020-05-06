@@ -1,6 +1,7 @@
 import http from '../services/httpService';
 import config from '../config.json';
 const url = config.apiEndpoint+'products';
+const urlTr = config.apiEndpoint+'products/transaction';
 
 function singleUrl(id){
     return `${url}/${id}`;
@@ -8,6 +9,10 @@ function singleUrl(id){
 
 export function productsData(){
   return http.get(url);
+}
+
+export function productsTrData(id){
+  return http.get(`${urlTr}/${id}`);
 }
 
 export function productsColumn(){
@@ -42,17 +47,17 @@ export function productsColumn(){
         }},
 
 
-        { name: "sell_price", label: "S.Price", options: {
+        { name: "sell_price", label: "Sell Price", options: {
         filter: true,
         sort: true,
         }},
 
-        { name: "purchase_price", label: "P.Price",options: {
+        { name: "purchase_price", label: "Purchase Price",options: {
          filter: true,
          sort: true,
         }},
 
-        { name: "stock", label: "Stock", options: {
+        { name: "current_stock", label: "Stock", options: {
         filter: true,
         sort: true,
         }},
@@ -62,7 +67,39 @@ export function productsColumn(){
         sort: true,
         }},
 
-        { name: "alert_quantity", label: "A.Qty", options: {
+        { name: "alert_quantity", label: "Alert Qty", options: {
+        filter: true,
+        sort: true,
+        }}];
+}
+
+export function productsTrColumn(){
+  return [{ name: "sku", label: "SKU", options: {
+         filter: true,
+         sort: true,
+        }},
+
+        { name: "name", label: "Name", options: {
+        filter: true,
+        sort: true,
+        }},
+
+        { name: "transaction_point", label: "Transaction Type", options: {
+          filter: true,
+          sort: true,
+          }},
+
+        { name: "ref", label: "Ref", options: {
+          filter: true,
+          sort: true,
+          }},
+
+        { name: "in_stock", label: "Stock In", options: {
+        filter: true,
+        sort: true,
+        }},
+
+        { name: "out_stock", label: "Stock Out", options: {
         filter: true,
         sort: true,
         }}];
