@@ -72,7 +72,9 @@ import AccountAction from './component/accounts/action/accountAction';
 import ProductAction from './component/product/action/productAction';
 import ProductTransaction from './component/product/productTransaction';
 import StockAdjustmentAction from './component/product/action/stockAdjustmentAction';
+import CustomerAction from './component/customer/action/customerAction';
 import './App.css';
+
 
 
 
@@ -119,6 +121,7 @@ class App extends Component {
 
                 {/* Customer: Start */}
                 <AuthRoute path="/customers/list" exact component={CustomerList} />
+                <AuthRoute path="/customers/list/:id" exact component={CustomerAction} />
 
                 <AuthRoute path="/customers/category" exact component={CustomerCategory} />
                 <AuthRoute path="/customers/category/:id" exact component={CustomerCategoryAction} />

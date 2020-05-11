@@ -1,29 +1,49 @@
 import http from '../services/httpService';
 import config from '../config.json';
-const url = config.apiEndpoint+'settings/vat-tax';
+const url = config.apiEndpoint+'customers';
 
 function singleUrl(id){
     return `${url}/${id}`;
   }
 
-export function vatTaxData(){
+export function customerData(){
   return http.get(url);
 }
 
-export function vatTaxColumn(){
-  return [{ name: "name", label: "Name", options: {
+export function customerColumn(){
+  return [{ name: "code", label: "S/N", options: {
          filter: true,
          sort: true,
         }},
 
-        { name: "amount", label: "Vat Amount (%)",options: {
+        { name: "name", label: "Name",options: {
          filter: true,
          sort: true,
-        }}];
+        }},
+
+        { name: "contact", label: "Contact", options: {
+          filter: true,
+          sort: true,
+         }},
+
+         { name: "email", label: "Email", options: {
+          filter: true,
+          sort: true,
+         }},
+
+         { name: "address", label: "Address", options: {
+          filter: true,
+          sort: true,
+         }},
+
+         { name: "balance", label: "Balance", options: {
+          filter: true,
+          sort: true,
+         }}];
 }
 
 
-export function vatTaxSave(data) {
+export function customerSave(data) {
   if(data.id){
       const body = {...data};
       delete body.id;
@@ -33,10 +53,10 @@ export function vatTaxSave(data) {
   return http.post(url, data);
 }
 
-export function vatTaxGet(id) {
+export function customerGet(id) {
   return http.get(singleUrl(id));
 }
 
-export function vatTaxDel(id) {
+export function customerDel(id) {
   return http.delete(singleUrl(id));
 }

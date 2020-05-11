@@ -11,15 +11,36 @@ export function vatTaxData(){
 }
 
 export function vatTaxColumn(){
-  return [{ name: "name", label: "Name", options: {
-         filter: true,
-         sort: true,
+  return [{ name: "code", label: "S/N", options: {
+          filter: true,
+          sort: true,
         }},
 
-        { name: "amount", label: "Vat Amount (%)",options: {
-         filter: true,
-         sort: true,
-        }}];
+        { name: "name", label: "Name",options: {
+          filter: true,
+          sort: true,
+        }},
+
+        { name: "contact", label: "Contact", options: {
+          filter: true,
+          sort: true,
+          }},
+
+          { name: "email", label: "Email", options: {
+          filter: true,
+          sort: true,
+          }},
+
+          { name: "address", label: "Address", options: {
+          filter: true,
+          sort: true,
+          }},
+
+          { name: "balance", label: "Balance", options: {
+          filter: true,
+          sort: true,
+          }}
+        ];
 }
 
 

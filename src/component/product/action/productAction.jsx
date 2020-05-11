@@ -199,7 +199,7 @@ class ProductAction extends Forms {
                                     </div>
                                 </div>
                        
-                            {this.renderSubmit()}
+                                {this.renderSubmit()}
                                 
                             </div>
                         </div>

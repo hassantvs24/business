@@ -1,10 +1,16 @@
 import http from '../services/httpService';
 import config from '../config.json';
 const url = config.apiEndpoint+'settings/zone';
+const zoneUrl = config.apiEndpoint+'settings/zone/find';
+
 
 function singleUrl(id){
     return `${url}/${id}`;
   }
+
+export function findLoc(location='division', id=null){
+  return http.get(`${zoneUrl}/${location}/${id}`);
+}
 
 export function zoneData(){
   return http.get(url);
