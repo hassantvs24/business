@@ -132,7 +132,6 @@ class StockAdjustmentAction extends Forms {
         data['itemSelect'] = items.length;
         this.productOptionRemoveFilter(productID);
         
-
         this.setState({data, items});
     }
 
@@ -146,8 +145,7 @@ class StockAdjustmentAction extends Forms {
         const options = [ ...this.state.options.products, ...productShape];
         data['itemSelect'] = remainItem.length;
 
-        await this.setState({options: {products: options}, data, items: [...remainItem]});
-        await this.checkInvalidQuantity();
+        this.setState({options: {products: options}, data, items: [...remainItem]}, this.checkInvalidQuantity());
     }
 
     handleItemInput = ({currentTarget: input}) => {
